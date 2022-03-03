@@ -1,65 +1,68 @@
 class SortedList {
-  constructor(items, length) {
-    this.items = [];
-    this.length = 0;
+  constructor() {
+    this.items = []
+    this.length = 0
   }
   add(item) {
-    this.length=this.length+1;
-    const items=this.items;
-    items.push(item)
-    items.sort((a,b)=>a>b?1:-1)
-    this.items=items
+    this.items.push(item)
+    this.items.sort((a, b) => a - b)
+    this.length = this.items.length
   }
-  get(pos) {
-    if (pos >= this.length) {
-      throw new Error("OutOfBounds");
-      return;
+  get(i) {
+    if (this.items.indexOf(i) == -1) {
+      throw new Error('OutOfBounds')
     }
-    return this.items[pos];
+    else {
+      return(this.items.indexOf(i))
+    }
   }
   max() {
-    if (this.items.length === 0) {
-      throw new Error("EmptySortedList");
-      return;
+    if(this.items.length>0)
+    {
+      return (Math.max(...this.items))
     }
-    let number = Number.MIN_VALUE;
-    this.items.map((item) => {
-      if (item > number) {
-        number = item;
-      }
-    });
-    return number;
+    else{
+      throw new Error("EmptySortedList ")
+    }
   }
   min() {
-    if (this.items.length === 0) {
-      throw new Error("EmptySortedList");
-      return;
+    if (this.items.length > 0) {
+      return (Math.min(...this.items))
     }
-    let number = Number.MAX_VALUE;
-    this.items.map((item) => {
-      if (item < number) {
-        number = item;
-      }
-    });
-    return number;
+    else {
+      throw new Error("EmptySortedList ")
+    }
   }
   avg() {
-    if (this.items.length === 0) {
-      throw new Error("EmptySortedList");
-      return;
+    if (this.items.length > 0) {
+      let sum = this.sum()
+      return sum/this.items.length
+      }
+    else {
+      throw new Error("EmptySortedList ")
     }
-    let number=0;
-    this.items.map(item=>{
-      number+=item
-    })
-    return (number/this.length);
   }
+
   sum() {
-    let number=0;
-    this.items.map(item=>{
-      number+=item
-    })
-    return number;
+    if (this.items.length > 0) {
+     return this.items.reduce((acc, val) =>  acc + val)
+    }
+    else{
+      return 0
+    }
   }
-}
+
+};
+
+let Sortedlist = new SortedList();
+Sortedlist.add(70)
+Sortedlist.add(60)
+Sortedlist.add(50)
+Sortedlist.add(40)
+console.log(Sortedlist.add(30));
+console.log(Sortedlist.sum());
+console.log(Sortedlist.get(30));
+console.log(Sortedlist.max());
+console.log(Sortedlist.min());
+
 module.exports = SortedList;
